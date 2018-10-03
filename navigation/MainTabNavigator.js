@@ -9,12 +9,30 @@ import PostScreen from '../screens/PostScreen';
 import SearchScreen from '../screens/SearchScreeen';
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
+const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+          width:0
+        },
+        shadowRadius: 1,
+        elevation: 1,
+      },
+    }
+  }
+);
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
+  tabBarOptions: {
+    showLabel: false
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -27,12 +45,29 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const SearchStack = createStackNavigator({
-  Links: SearchScreen,
-});
+const SearchStack = createStackNavigator(
+  {
+    Search: SearchScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+          width:0
+        },
+        shadowRadius: 1,
+        elevation: 1,
+      },
+    }
+  });
 
 SearchStack.navigationOptions = {
   tabBarLabel: 'Discover',
+  tabBarOptions: {
+    showLabel: false
+  },
   tabBarIcon: ({focused}) => (
     <TabBarIcon 
       focused={focused}
@@ -40,12 +75,29 @@ SearchStack.navigationOptions = {
   ),
 };
 
-const PostStack = createStackNavigator({
-  Links: PostScreen,
-});
+const PostStack = createStackNavigator(
+  {
+    Links: PostScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+          width:0
+        },
+        shadowRadius: 1,
+        elevation: 1,
+      },
+    }
+  });
 
 PostStack.navigationOptions = {
   tabBarLabel:'Post',
+  tabBarOptions: {
+    showLabel: false
+  },
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
@@ -54,12 +106,29 @@ PostStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
+const LinksStack = createStackNavigator(
+  {
+    Links: LinksScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+          width:0
+        },
+        shadowRadius: 1,
+        elevation: 1,
+      },
+    }
+  });
 
 LinksStack.navigationOptions = {
   tabBarLabel: 'Links',
+  tabBarOptions: {
+    showLabel: false
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -68,12 +137,29 @@ LinksStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const SettingsStack = createStackNavigator(
+  {
+    Settings: SettingsScreen,
+  },
+  {
+    navigationOptions: {
+      headerStyle: {
+        shadowOpacity: 0,
+        shadowOffset: {
+          height: 0,
+          width:0
+        },
+        shadowRadius: 1,
+        elevation: 1,
+      },
+    }
 });
 
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Settings',
+  tabBarOptions: {
+    showLabel: false
+  },
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}

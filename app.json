@@ -3,7 +3,7 @@
     "name": "zema",
     "description": "A very interesting project.",
     "slug": "zema",
-    "privacy": "public",
+    "privacy": "unlisted",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",

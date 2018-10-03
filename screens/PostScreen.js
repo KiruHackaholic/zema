@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 export default class PostScreen extends React.Component {
   static navigationOptions = {
-    title: 'Search',
+    header: null,
   };
 
   render() {
