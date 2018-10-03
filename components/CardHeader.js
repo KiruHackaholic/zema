@@ -16,7 +16,8 @@ const styles = {
     containerStyle: {
         padding: 5,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between'
     }
 };
 
