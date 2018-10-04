@@ -8,3 +8,4 @@ export * from './StyledText';
 export * from './TabBarIcon';
 export * from './TextInput';
 export * from './PasswordInput';
+export * from './Spinner';

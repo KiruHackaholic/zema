@@ -1,11 +1,8 @@
 import React from 'react';
 import { Dimensions, View, Text,
     TouchableOpacity, Platform } from 'react-native';
-import ButtonIcon from './ButtonIcon';
-import PostCard from './PostCard';
-import CardHeader from './CardHeader';
 import Image from 'react-native-scalable-image';
-import CardFooter from './CardFooter';
+import { CardHeader, CardFooter, ButtonIcon, PostCard } from '.';
 
 const PostDetail = ({ post }) => {
     

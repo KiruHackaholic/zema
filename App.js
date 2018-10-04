@@ -1,12 +1,38 @@
 import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
+import firebase from 'firebase';
 import AppNavigator from './navigation/AppNavigator';
+import FirstScreen from './screens/FirstScreen';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
+    loggedIn: null
   };
+
+  componentWillMount() {
+    firebase.initializeApp({
+        apiKey: 'AIzaSyByFJwfF3cwNiJel1zaty9ICmVu4oJKjXQ',
+        authDomain: 'zema-2406f.firebaseapp.com',
+        databaseURL: 'https://zema-2406f.firebaseio.com',
+        projectId: 'zema-2406f',
+        storageBucket: 'zema-2406f.appspot.com',
+        messagingSenderId: '364159775869'
+      });
+
+    firebase.auth().onAuthStateChanged((user) => {
+      user ? this.setState({loggedIn: true}) : this.setState({loggedIn: false});
+    });
+  }
+
+  _isUserLoggedIn() {
+    if (this.state.isLoadingComplete && this.state.loggedIn) {
+      return <AppNavigator />;
+    } return (
+      <FirstScreen/>
+    );
+  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -21,7 +47,7 @@ export default class App extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          {this._isUserLoggedIn()}
         </View>
       );
     }

@@ -43,7 +43,7 @@ const styles = {
     },
     bigTab: {
         width: 150,
-        margin: 16,
+        margin: 10,
         padding: 10,
         fontSize: 26,
         color: Colors.tintColor

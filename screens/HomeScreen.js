@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-import PostsList from '../components/common/PostsList';
+import { PostsList } from '../components/common';
 
 import { MonoText } from '../components/common/StyledText';
 
@@ -18,7 +18,6 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} >
-
           <View style={styles.postsContainer}>
             <PostsList/>
           </View>
