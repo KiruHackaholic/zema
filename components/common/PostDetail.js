@@ -2,8 +2,8 @@ import React from 'react';
 import { Dimensions, View, Text,
     TouchableOpacity, Platform } from 'react-native';
 import ButtonIcon from './ButtonIcon';
-import PostCard from './common/PostCard';
-import CardHeader from './common/CardHeader';
+import PostCard from './PostCard';
+import CardHeader from './CardHeader';
 import Image from 'react-native-scalable-image';
 import CardFooter from './CardFooter';
 

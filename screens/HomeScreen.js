@@ -5,9 +5,9 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-import PostsList from '../components/PostsList';
+import PostsList from '../components/common/PostsList';
 
-import { MonoText } from '../components/StyledText';
+import { MonoText } from '../components/common/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
