@@ -15,4 +15,4 @@ const styles = {
 
 };
 
-export default CardFooter;
+export { CardFooter };

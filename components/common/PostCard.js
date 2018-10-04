@@ -21,4 +21,4 @@ const styles = {
     }
 };
 
-export default PostCard;
+export { PostCard };

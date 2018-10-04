@@ -32,4 +32,4 @@ class PostsList extends Component {
     }
 }
 
-export default PostsList;
+export { PostsList };

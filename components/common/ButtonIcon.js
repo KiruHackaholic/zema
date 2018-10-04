@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Icon } from 'expo';
 
 import Colors from '../../constants/Colors';
 
-export default class ButtonIcon extends React.Component {
+class ButtonIcon extends Component {
   render() {
     return (
       <Icon.Ionicons
@@ -14,3 +14,5 @@ export default class ButtonIcon extends React.Component {
     );
   }
 }
+
+export { ButtonIcon }

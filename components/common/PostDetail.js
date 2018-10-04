@@ -83,4 +83,4 @@ const styles = {
     }
 }
 
-export default PostDetail;
+export { PostDetail };
