@@ -8,7 +8,7 @@ import FirstScreen from './screens/FirstScreen';
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    loggedIn: null
+    loggedIn: false
   };
 
   componentWillMount() {
