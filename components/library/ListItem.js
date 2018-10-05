@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View,
+  Text,
+  TouchableWithoutFeedback,
+  Platform,
+  UIManager,
+  LayoutAnimation
+} from 'react-native';
 import { connect } from 'react-redux';
 import Image from 'react-native-scalable-image';
 import Colors from '../../constants/Colors';
@@ -8,11 +14,21 @@ import ListItemDetail from './ListItemDetail';
 
 class ListItem extends Component {
 
+  componentWillMount() {
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }
+
+  componentWillUpdate() {
+    LayoutAnimation.spring();
+  }
+
   _renderLibraryDetail() {
 
-    const { item, itemId } = this.props;
+    const { item, expanded } = this.props;
 
-    if (item.id === itemId) {
+    if (expanded) {
       return (
         <ListItemDetail item={item} />
       );
@@ -82,8 +98,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = (state) => {
-  return { itemId: state.selectedItemId };
+const mapStateToProps = (state, ownProps) => {
+  const expanded = state.selectedItemId === ownProps.item.id;
+
+  return { expanded };
 };
 
 export default connect(mapStateToProps, actions)(ListItem);
