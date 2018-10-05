@@ -2,8 +2,11 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import firebase from 'firebase';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import AppNavigator from './navigation/AppNavigator';
 import FirstScreen from './screens/FirstScreen';
+import reducers from './reducers';
 
 export default class App extends React.Component {
   state = {
@@ -45,10 +48,13 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          {this._isUserLoggedIn()}
-        </View>
+        <Provider store={createStore(reducers)}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            {this._isUserLoggedIn()}
+          </View>
+        </Provider>
+        
       );
     }
   }
