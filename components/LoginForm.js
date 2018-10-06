@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
-import firebase from 'firebase';
+import { connect } from 'react-redux';
+import { emailChanged, passwordChanged, loginUser } from '../actions';
 import { TextInput, PasswordInput } from './common';
 import Colors from '../constants/Colors';
 
@@ -9,34 +10,38 @@ class LoginForm extends Component {
 
     state = { username: '', password: '', error: '', loading: false };
 
+    _userNameChanged(email) {
+      this.props.emailChanged(email);
+    }
+
+    _passwordChanged(password) {
+      this.props.passwordChanged(password);
+    }
+
     _signin() {
 
         this.setState({error: '', loading: true});
 
-        const { username, password } = this.state;
+        const { email, password } = this.props;
 
-        firebase.auth().signInWithEmailAndPassword( username, password )
-            .then(this._onSigninSuccess.bind(this))
-            .catch(() => {
-                firebase.auth().createUserWithEmailAndPassword(username, password)
-                    .then(this._onSigninSuccess.bind(this))
-                    .catch(() => {
-                        this.setState({error: 'Authentication failed.', loading: false})
-                    });
-            });
+        this.props.loginUser({ email, password });
+
     }
 
-    _onSigninSuccess() {
-        this.setState({
-            error: '',
-            username: '',
-            password: '',
-            loading: false
-        })
+    _renderError() {
+      const { error } = this.props;
+      if (error) {
+        return (
+          <Text style={styles.errorMessage}>
+            {error}
+          </Text>
+        );
+      }
     }
 
     _renderButton() {
-        if (this.state.loading) {
+      const { loading } = this.props;
+        if (loading) {
             return <Button buttonStyle={styles.buttonStyle}
                         rounded
                         backgroundColor={Colors.tintColor}
@@ -54,23 +59,25 @@ class LoginForm extends Component {
     render() {
         return (
             <View style={styles.containerStyle}>
-                <Text style={styles.errorMessage}>
-                    {this.state.error}
-                </Text>
+                {this._renderError()}
                 <View>
                     <TextInput value={this.state.username}
                         label={'Username'}
-                        onChangeText={username => this.setState({ username })}
+                        placeholder={'Enter your email'}
+                        onChangeText={this._userNameChanged.bind(this)}
+                        value={this.props.email}
                     />
                     <PasswordInput value={this.state.password}
                         label={'Password'}
-                        onChangeText={password => this.setState({ password })}
+                        placeholder={'Enter your password'}
+                        onChangeText={this._passwordChanged.bind(this)}
+                        value={this.props.password}
                     />
                 </View>
                 <View>
                     {this._renderButton()}
                 </View>
-                
+
                 <View style={styles.divider}>
                     <Text>OR CONNECT WITH</Text>
                 </View>
@@ -115,4 +122,13 @@ const styles = {
     }
 };
 
-export default LoginForm;
+const mapStateToProps = ({ authReducer }) => {
+  const { email, password, loading, error } = authReducer;
+  return { email, password, loading, error }
+};
+
+export default connect(mapStateToProps, {
+  emailChanged,
+  passwordChanged,
+  loginUser
+})(LoginForm);

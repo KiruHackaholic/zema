@@ -5,14 +5,16 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 class PasswordInput extends Component {
 
     render() {
+      const { label, placeholder, value, onChangeText } = this.props;
         return (
             <View style={styles.passwordInput}>
-                <FormLabel>{this.props.label}</FormLabel>
-                <FormInput value={this.props.value}
+                <FormLabel>{label}</FormLabel>
+                <FormInput value={value}
                     shake={true}
                     secureTextEntry
                     autoCorrect={false}
-                    onChangeText={this.props.onChangeText}
+                    placeholder={placeholder}
+                    onChangeText={onChangeText}
                 />
                 {/* <FormValidationMessage>Error message</FormValidationMessage> */}
             </View>

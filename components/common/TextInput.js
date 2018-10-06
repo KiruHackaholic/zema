@@ -5,13 +5,15 @@ import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elemen
 class TextInput extends Component {
 
     render() {
+      const { label, placeholder, value, onChangeText } = this.props;
         return (
             <View style={styles.textInput}>
-                <FormLabel>{this.props.label}</FormLabel>
-                <FormInput value={this.props.value}
+                <FormLabel>{label}</FormLabel>
+                <FormInput value={value}
                     shake={true}
+                    placeholder={placeholder}
                     autoCorrect={false}
-                    onChangeText={this.props.onChangeText}
+                    onChangeText={onChangeText}
                 />
                 {/* <FormValidationMessage>Error message</FormValidationMessage> */}
             </View>

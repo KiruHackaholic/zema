@@ -21,7 +21,7 @@ class ListItem extends Component {
   }
 
   componentWillUpdate() {
-    LayoutAnimation.spring();
+    LayoutAnimation.easeInEaseOut();
   }
 
   _renderLibraryDetail() {

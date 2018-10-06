@@ -3,10 +3,12 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import AppNavigator from './navigation/AppNavigator';
 import FirstScreen from './screens/FirstScreen';
 import reducers from './reducers';
+import { API_KEY } from './environments/config';
 
 export default class App extends React.Component {
   state = {
@@ -16,7 +18,7 @@ export default class App extends React.Component {
 
   componentWillMount() {
     firebase.initializeApp({
-        apiKey: 'AIzaSyByFJwfF3cwNiJel1zaty9ICmVu4oJKjXQ',
+        apiKey: API_KEY,
         authDomain: 'zema-2406f.firebaseapp.com',
         databaseURL: 'https://zema-2406f.firebaseio.com',
         projectId: 'zema-2406f',
@@ -38,6 +40,8 @@ export default class App extends React.Component {
   }
 
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -48,13 +52,13 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <Provider store={createStore(reducers)}>
+        <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            {this._isUserLoggedIn()}
+            <FirstScreen/>
           </View>
         </Provider>
-        
+
       );
     }
   }
