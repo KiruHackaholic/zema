@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { connect } from 'react-redux';
 import Image from 'react-native-scalable-image';
 import Colors from '../../constants/Colors';
-import * as actions from '../../actions';
 
 class ListItemDetail extends Component {
   render() {
 
-    const { title, image, userName } = this.props.item;
+    const { id, title, image, userName } = this.props.item;
 
     return (
       <View style={styles.detailContainer}>
@@ -18,7 +16,7 @@ class ListItemDetail extends Component {
           source={{ uri: image }}
         />
         <Text style={styles.title}>
-          {title}
+          {title} {id}
         </Text>
         <Text style={styles.author}>
           {userName}
@@ -45,4 +43,4 @@ const styles = {
   }
 };
 
-export default connect(null, actions)(ListItemDetail);
+export default ListItemDetail;

@@ -12,6 +12,7 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  textColor: '#000',
   secondaryText: '#A8B7C1',
   dividerColor: '#C7C7CC'
 };

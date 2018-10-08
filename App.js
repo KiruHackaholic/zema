@@ -1,42 +1,78 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import AppNavigator from './navigation/AppNavigator';
-import FirstScreen from './screens/FirstScreen';
+import Deck from './screens/Deck';
+import ListItemDetail from './components/library/ListItemDetail';
 import reducers from './reducers';
 import { API_KEY } from './environments/config';
+import axios from 'axios';
 
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
-    loggedIn: false
+    loggedIn: false,
+    posts: []
   };
 
   componentWillMount() {
-    firebase.initializeApp({
-        apiKey: API_KEY,
-        authDomain: 'zema-2406f.firebaseapp.com',
-        databaseURL: 'https://zema-2406f.firebaseio.com',
-        projectId: 'zema-2406f',
-        storageBucket: 'zema-2406f.appspot.com',
-        messagingSenderId: '364159775869'
-      });
+    this._getRecentPosts();
+    // firebase.initializeApp({
+    //     apiKey: API_KEY,
+    //     authDomain: 'zema-2406f.firebaseapp.com',
+    //     databaseURL: 'https://zema-2406f.firebaseio.com',
+    //     projectId: 'zema-2406f',
+    //     storageBucket: 'zema-2406f.appspot.com',
+    //     messagingSenderId: '364159775869'
+    //   });
 
-    firebase.auth().onAuthStateChanged((user) => {
-      user ? this.setState({loggedIn: true}) : this.setState({loggedIn: false});
-    });
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   user ? this.setState({loggedIn: true}) : this.setState({loggedIn: false});
+    // });
+
+  }
+
+  _getRecentPosts() {
+    axios.get('http://192.168.0.16:3000/posts')
+        .then(response => this.setState({ posts: response.data }));
   }
 
   _isUserLoggedIn() {
     if (this.state.isLoadingComplete && this.state.loggedIn) {
       return <AppNavigator />;
     } return (
-      <FirstScreen/>
+      <Deck
+        data={this.state.posts}
+        renderCard={this._renderCard}
+        noMoreCards={this._renderNoMoreCards}
+        // onSwipeRight={this._onSwipeRight()}
+        // onSwipeLeft={this._onSwipeLeft()}
+      />
     );
+  }
+
+  _renderCard(item) {
+    return (
+      <ListItemDetail key={item.id} item={item}/>
+    );
+  }
+
+  _renderNoMoreCards() {
+    return (
+      <Text>All caught up!!!</Text>
+    );
+  }
+
+  _onSwipeRight() {
+
+  }
+
+  _onSwipeLeft() {
+
   }
 
   render() {
@@ -55,7 +91,13 @@ export default class App extends React.Component {
         <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <FirstScreen/>
+            <Deck
+              data={this.state.posts}
+              renderCard={this._renderCard}
+              noMoreCards={this._renderNoMoreCards}
+              // onSwipeRight={this._onSwipeRight()}
+              // onSwipeLeft={this._onSwipeLeft()}
+            />
           </View>
         </Provider>
 
