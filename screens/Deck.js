@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View,
   Animated,
   PanResponder,
-
+  LayoutAnimation,
+  UIManager
  } from 'react-native';
  import window from '../constants/Layout'
 import Colors from '../constants/Colors';
@@ -46,6 +47,18 @@ class Deck extends Component {
   }
 
   componentWillMount() {
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+  }
+
+  componentWillUpdate() {
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    if (nextProps.data !== this.props.data) {
+      this.setState({ index: 0 });
+    }
+
   }
 
   _forceSwipe(direction) {
@@ -65,6 +78,7 @@ class Deck extends Component {
     setTimeout(() => {
       this._position.setValue({ x: 0, y: 0 });
       this.setState({ index: this.state.index + 1 });
+      LayoutAnimation.spring();
     }, 0);
 
   }
@@ -101,7 +115,7 @@ class Deck extends Component {
         return (
           <Animated.View
             key={item.id}
-            style={[this._getCardStyle(), styles.cardStyle]}
+            style={[this._getCardStyle(), styles.cardStyle, { elevation: 3 }]}
             {...this._panResponder.panHandlers}
           >
             {this.props.renderCard(item)}
@@ -109,7 +123,9 @@ class Deck extends Component {
         );
       }
       return (
-        <Animated.View key={item.id} style={styles.cardStyle}>
+        <Animated.View key={item.id}
+          style={[styles.cardStyle,
+            { top: 10 * (i - this.state.index)}]}>
           {this.props.renderCard(item)}
         </Animated.View>
       );
@@ -132,7 +148,15 @@ const styles = {
   },
   cardStyle: {
     position: 'absolute',
-    width: DEVICE_WIDTH
+    width: DEVICE_WIDTH,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#ddd',
+    backgroundColor: Colors.noticeText,
+    shadowColor: Colors.textColor,
+    shadowOffset: { width: 1, height: 6 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20
   },
   img: {
     margin: 10
