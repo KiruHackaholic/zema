@@ -9,7 +9,7 @@ import { View,
 import { connect } from 'react-redux';
 import Image from 'react-native-scalable-image';
 import Colors from '../../constants/Colors';
-import * as actions from '../../actions';
+import * as actions from '../../actions/user_management';
 import ListItemDetail from './ListItemDetail';
 
 class ListItem extends Component {

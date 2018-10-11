@@ -5,7 +5,7 @@ import { View,
   LayoutAnimation,
   UIManager
  } from 'react-native';
- import window from '../constants/Layout'
+ import window from '../constants/Layout';
 import Colors from '../constants/Colors';
 
 

@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { Button } from 'react-native-elements';
-import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+
+import { emailChanged,
+  passwordChanged,
+  loginUser,
+  facebookLogin } from '../actions';
 import { TextInput, PasswordInput } from './common';
 import Colors from '../constants/Colors';
 
@@ -26,6 +30,10 @@ class LoginForm extends Component {
 
         this.props.loginUser({ email, password });
 
+    }
+
+    _loginWithFacebook = () => {
+      this.props.facebookLogin();
     }
 
     _renderError() {
@@ -83,7 +91,12 @@ class LoginForm extends Component {
                 </View>
 
                 <View style={styles.socialLogin}>
-
+                <Button
+                  large
+                  rounded
+                  title='FACEBOOK'
+                  onPress={this._loginWithFacebook}
+                />
                 </View>
 
             </View>
@@ -115,10 +128,8 @@ const styles = {
         height: 40
     },
     divider: {
-        display: 'none'
     },
     socialLogin: {
-        display: 'none'
     }
 };
 
@@ -130,5 +141,6 @@ const mapStateToProps = ({ authReducer }) => {
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
-  loginUser
+  loginUser,
+  facebookLogin
 })(LoginForm);

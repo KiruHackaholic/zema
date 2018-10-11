@@ -9,22 +9,22 @@ class LoginTab extends Component {
         return (
             <View style={styles.containerStyle}>
                 <View style={styles.tabContainerStyle}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => {}}>
                         <Text style={styles.bigTab}>
                             Sign in
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigator.navigate('Auth')}>
                         <Text style={styles.bigTab}>
                             Registration
                         </Text>
                     </TouchableOpacity>
                 </View>
-                
+
                 <View style={styles.loginForm}>
                     <LoginForm />
                 </View>
-    
+
             </View>
         );
     }

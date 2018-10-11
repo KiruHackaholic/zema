@@ -3,13 +3,16 @@ import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import ReduxThunk from 'redux-thunk';
+
+import store from './store'
 import AppNavigator from './navigation/AppNavigator';
-import Deck from './screens/Deck';
 import ListItemDetail from './components/library/ListItemDetail';
-import reducers from './reducers';
-import { API_KEY } from './environments/config';
+import { API_KEY,
+  DATABSE_URL,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDER_ID } from './environments/config';
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -23,11 +26,11 @@ export default class App extends React.Component {
     this._getRecentPosts();
     // firebase.initializeApp({
     //     apiKey: API_KEY,
-    //     authDomain: 'zema-2406f.firebaseapp.com',
-    //     databaseURL: 'https://zema-2406f.firebaseio.com',
-    //     projectId: 'zema-2406f',
-    //     storageBucket: 'zema-2406f.appspot.com',
-    //     messagingSenderId: '364159775869'
+        // authDomain: AUTH_DOMAIN,
+    //     databaseURL: DATABSE_URL,
+        // projectId: PROJECT_ID,
+        // storageBucket: STORAGE_BUCKET,
+        // messagingSenderId: MESSAGING_SENDER_ID
     //   });
 
     // firebase.auth().onAuthStateChanged((user) => {
@@ -45,13 +48,7 @@ export default class App extends React.Component {
     if (this.state.isLoadingComplete && this.state.loggedIn) {
       return <AppNavigator />;
     } return (
-      <Deck
-        data={this.state.posts}
-        renderCard={this._renderCard}
-        noMoreCards={this._renderNoMoreCards}
-        // onSwipeRight={this._onSwipeRight()}
-        // onSwipeLeft={this._onSwipeLeft()}
-      />
+      <AppNavigator />
     );
   }
 
@@ -76,8 +73,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -91,13 +86,7 @@ export default class App extends React.Component {
         <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <Deck
-              data={this.state.posts}
-              renderCard={this._renderCard}
-              noMoreCards={this._renderNoMoreCards}
-              // onSwipeRight={this._onSwipeRight()}
-              // onSwipeLeft={this._onSwipeLeft()}
-            />
+            {this._isUserLoggedIn()}
           </View>
         </Provider>
 
