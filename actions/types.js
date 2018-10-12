@@ -6,3 +6,5 @@ export const LOGIN_USER_SUCCESS = 'login_user_success';
 export const LOGIN_USER_FAILED = 'login_user_failed';
 export const FACEBOOK_LOGIN_SUCCESS = 'facebook_login_success';
 export const FACEBOOK_LOGIN_FAILED = 'facebook_login_failed';
+
+export const FETCH_JOBS = 'fetch_jobs';

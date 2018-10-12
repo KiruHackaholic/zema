@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { Button } from 'react-native-elements';
 import { WebBrowser } from 'expo';
 import { PostsList } from '../components/common';
 
@@ -17,8 +18,13 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} >
+          <Button
+            onPress={() =>
+              this.props.navigation.navigate('MapLocation')}
+            title={'Goto Map'}
+          />
           <View style={styles.postsContainer}>
-            <PostsList/>
+            <PostsList />
           </View>
 
         </ScrollView>

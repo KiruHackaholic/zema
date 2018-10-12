@@ -8,10 +8,12 @@ import LinksScreen from '../screens/LinksScreen';
 import PostScreen from '../screens/PostScreen';
 import SearchScreen from '../screens/SearchScreeen';
 import SettingsScreen from '../screens/SettingsScreen';
+import MapLocationScreen from '../screens/MapLocationScreen';
 
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
+    MapLocation: MapLocationScreen
   },
   {
     navigationOptions: {
@@ -69,7 +71,7 @@ SearchStack.navigationOptions = {
     showLabel: false
   },
   tabBarIcon: ({focused}) => (
-    <TabBarIcon 
+    <TabBarIcon
       focused={focused}
       name={Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search'} />
   ),
@@ -174,4 +176,7 @@ export default createBottomTabNavigator({
   PostStack,
   LinksStack,
   SettingsStack,
+}, {
+  animationEnabled: true,
+  lazy: true,
 });

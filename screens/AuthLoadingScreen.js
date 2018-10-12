@@ -24,11 +24,11 @@ class AuthLoadingScreen extends React.Component {
   async componentWillMount() {
     let token = await AsyncStorage.getItem('fb_token');
 
-    // if (token) {
-    //   this.props.navigation.navigate('App');
-    // } else {
-    //   this.props.navigation.navigate('Main');
-    // }
+    if (token) {
+      this.props.navigation.navigate('App');
+    } else {
+      this.props.navigation.navigate('Main');
+    }
   }
 
 
@@ -36,7 +36,7 @@ class AuthLoadingScreen extends React.Component {
     if (_.isNull(this.state.token)) {
       return (
         <View style={styles.container}>
-          <ActivityIndicator size={30}
+          <ActivityIndicator size='large'
             color={Colors.primaryBackground} />
             {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
         </View>

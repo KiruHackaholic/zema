@@ -8,12 +8,11 @@ class PostsList extends Component {
     state = { posts: [] }
 
     componentWillMount() {
-        this._getRecentPosts();
-        
+      this._getRecentPosts();
     }
 
     renderPosts() {
-        return this.state.posts.map(post => 
+        return this.state.posts.map(post =>
             <PostDetail key={post.id} post={post}/>
         );
     }
