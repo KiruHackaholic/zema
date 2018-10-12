@@ -2,13 +2,16 @@ import { EMAIL_CHANGED,
   PASSWORD_CHANGED,
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
-  LOGIN_USER_FAILED
+  LOGIN_USER_FAILED,
+  FACEBOOK_LOGIN_FAILED,
+  FACEBOOK_LOGIN_SUCCESS
 } from '../actions/types';
 
 const INITIAL_STATE = {
   email: '',
   password: '',
   loading: false,
+  token: null,
   user: null,
   error: ''
 };
@@ -31,6 +34,12 @@ export default (state = INITIAL_STATE, action) => {
 
     case LOGIN_USER_FAILED:
       return { ...state, error: 'Authentication failed!', password: '', loading: false };
+
+    case FACEBOOK_LOGIN_SUCCESS:
+      return { ...state, token: action.payload };
+
+    case FACEBOOK_LOGIN_FAILED:
+      return { ...state, token: null }
 
     default:
       return state;

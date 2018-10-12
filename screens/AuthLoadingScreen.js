@@ -6,36 +6,42 @@ import { Platform,
   StyleSheet,
   View,
 } from 'react-native';
+import _ from 'lodash';
+
 import Colors from '../constants/Colors';
 
 class AuthLoadingScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this._bootstrapAsync();
-  }
-
-  componentWillMount() {
-
-  }
-
-  // Fetch the token from storage then navigate to our appropriate place
-  _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+  static navigationOptions = {
+    header: null
   };
 
-  // Render any loading content that you like here
-  render() {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator />
-        {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-      </View>
+  state = { token: null };
 
-    );
+  constructor(props) {
+    super(props);
+  }
+
+  async componentWillMount() {
+    let token = await AsyncStorage.getItem('fb_token');
+
+    // if (token) {
+    //   this.props.navigation.navigate('App');
+    // } else {
+    //   this.props.navigation.navigate('Main');
+    // }
+  }
+
+
+  render() {
+    if (_.isNull(this.state.token)) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size={30}
+            color={Colors.primaryBackground} />
+            {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+        </View>
+      );
+    }
   }
 
 }
@@ -43,7 +49,9 @@ class AuthLoadingScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryBackground,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.tintColor,
   }
 });
 

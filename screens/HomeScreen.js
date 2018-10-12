@@ -11,7 +11,6 @@ import { MonoText } from '../components/common/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    
   };
 
   render() {

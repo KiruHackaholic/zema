@@ -3,6 +3,7 @@ import { Platform, StatusBar, StyleSheet, View, Text } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 
 import store from './store'
 import AppNavigator from './navigation/AppNavigator';
@@ -13,7 +14,6 @@ import { API_KEY,
   PROJECT_ID,
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID } from './environments/config';
-import axios from 'axios';
 
 export default class App extends React.Component {
   state = {
@@ -44,14 +44,6 @@ export default class App extends React.Component {
         .then(response => this.setState({ posts: response.data }));
   }
 
-  _isUserLoggedIn() {
-    if (this.state.isLoadingComplete && this.state.loggedIn) {
-      return <AppNavigator />;
-    } return (
-      <AppNavigator />
-    );
-  }
-
   _renderCard(item) {
     return (
       <ListItemDetail key={item.id} item={item}/>
@@ -64,13 +56,6 @@ export default class App extends React.Component {
     );
   }
 
-  _onSwipeRight() {
-
-  }
-
-  _onSwipeLeft() {
-
-  }
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
@@ -86,10 +71,9 @@ export default class App extends React.Component {
         <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            {this._isUserLoggedIn()}
+            <AppNavigator />
           </View>
         </Provider>
-
       );
     }
   }

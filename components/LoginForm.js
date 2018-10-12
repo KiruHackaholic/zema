@@ -14,6 +14,21 @@ class LoginForm extends Component {
 
     state = { username: '', password: '', error: '', loading: false };
 
+    componentDidMount() {
+      this.props.facebookLogin();
+      this._onAuthComplete(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+      this._onAuthComplete(nextProps);
+    }
+
+    _onAuthComplete(props) {
+      if (props.token) {
+        this.props.authenticationComplete();
+      }
+    }
+
     _userNameChanged(email) {
       this.props.emailChanged(email);
     }
@@ -134,8 +149,8 @@ const styles = {
 };
 
 const mapStateToProps = ({ authReducer }) => {
-  const { email, password, loading, error } = authReducer;
-  return { email, password, loading, error }
+  const { email, password, loading, error, token } = authReducer;
+  return { email, password, loading, error, token };
 };
 
 export default connect(mapStateToProps, {
