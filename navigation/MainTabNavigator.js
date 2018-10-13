@@ -9,11 +9,13 @@ import PostScreen from '../screens/PostScreen';
 import SearchScreen from '../screens/SearchScreeen';
 import SettingsScreen from '../screens/SettingsScreen';
 import MapLocationScreen from '../screens/MapLocationScreen';
+import JobsScreen from '../screens/JobsScreen';
 
 const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
-    MapLocation: MapLocationScreen
+    MapLocation: MapLocationScreen,
+    Jobs: JobsScreen
   },
   {
     navigationOptions: {

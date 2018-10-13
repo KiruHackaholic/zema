@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MapView, Icon } from 'expo';
+import { MapView } from 'expo';
 import { View,
   ActivityIndicator,
   StyleSheet,
@@ -33,7 +33,9 @@ class MapLocationScreen extends Component {
   }
 
   _searchJobs = () => {
-    this.props.fetchJobs(this.state.region);
+    this.props.fetchJobs(this.state.region, () => {
+      this.props.navigation.navigate('Jobs');
+    });
   }
 
   render() {

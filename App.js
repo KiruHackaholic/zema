@@ -44,19 +44,6 @@ export default class App extends React.Component {
         .then(response => this.setState({ posts: response.data }));
   }
 
-  _renderCard(item) {
-    return (
-      <ListItemDetail key={item.id} item={item}/>
-    );
-  }
-
-  _renderNoMoreCards() {
-    return (
-      <Text>All caught up!!!</Text>
-    );
-  }
-
-
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
