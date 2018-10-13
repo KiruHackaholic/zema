@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
-export default class LinksScreen extends React.Component {
+import LikedJob from '../components/library/LikedJob';
+
+class LinksScreen extends Component {
   static navigationOptions = {
-    title: 'Links',
+    title: 'Liked Jobs',
   };
+
+  _renderLikedJobs() {
+    return this.props.likedJobs.map((job) => {
+      return (
+        <LikedJob key={job.id} item={job}/>
+      );
+    });
+  }
 
   render() {
     return (
       <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
+        {this._renderLikedJobs()}
       </ScrollView>
     );
   }
@@ -21,7 +29,13 @@ export default class LinksScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
+    padding: 15,
     backgroundColor: '#fff',
   },
 });
+
+const mapStateToProps = (state) => {
+  return { likedJobs: state.likedJobs };
+}
+
+export default connect(mapStateToProps)(LinksScreen)

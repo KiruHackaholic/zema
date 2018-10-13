@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 
 import Swipe from '../components/Swipe';
 import JobItemDetail from '../components/library/JobItemDetail';
+import { likeJob } from '../actions';
 
 class JobsScreen extends Component {
 
@@ -32,6 +33,7 @@ class JobsScreen extends Component {
           data={this.props.jobs}
           renderCard={this._renderCard}
           renderNoMoreCards={this._renderNoMoreCards}
+          onSwipeRight={job => this.props.likeJob(job)}
         />
       </View>
     );
@@ -50,4 +52,4 @@ const mapStateToProps = ({ jobReducer }) => {
   return { jobs: jobReducer.results };
 };
 
-export default connect(mapStateToProps)(JobsScreen);
+export default connect(mapStateToProps, { likeJob })(JobsScreen);
