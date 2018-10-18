@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import {
   FETCH_JOBS,
-  LIKE_JOB
+  LIKE_JOB,
+  CLEAR_LIKED_JOBS
 } from './types';
 
 
@@ -21,3 +22,8 @@ export const likeJob = (job) => {
   }
 };
 
+export const clearLikedJobs = () => {
+  return {
+    type: CLEAR_LIKED_JOBS
+  }
+};
